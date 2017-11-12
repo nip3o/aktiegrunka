@@ -4,7 +4,7 @@ function parseKeyValueResponse(response) {
 }
 
 function getUrl(kpiId, companyUrlName) {
-  return `https://borsdata.se/api/partialhighchart?companyUrlName=${companyUrlName}&kpiId=${kpiId}`
+  return `https://cors.io/?https://borsdata.se/api/partialhighchart?companyUrlName=${companyUrlName}&kpiId=${kpiId}`
 }
 
 class BorsdataAPI {
