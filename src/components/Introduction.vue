@@ -1,7 +1,10 @@
 <template>
   <div>
-    <h2>Byggmax</h2>
-    <button v-on:click="loadData('byggmax')">Ladda</button>
+    <label>
+      Aktie-slug
+      <input type="text" v-model="companyUrlName">
+    </label>
+    <button v-on:click="loadData(companyUrlName)">Ladda</button>
     <div class="key-figures">
       <KeyFigureBox
         class="key-figure"
@@ -21,6 +24,13 @@
 import KeyFigureBox from '@/components/KeyFigureBox'
 import BorsdataAPI from '@/api'
 
+function showError() {
+  window.alert(
+    'Något gick åt skogen! Kolla att aktie-slugen är rättskriven ' +
+    '(står i URL:en, t.ex. "byggmax" eller "g5-entertainment").'
+  )
+}
+
 export default {
   name: 'Introduction',
   components: {KeyFigureBox},
@@ -28,16 +38,18 @@ export default {
     loadData(companyUrlName) {
       BorsdataAPI.getSalesPerShare(companyUrlName).then((values) => {
         this.salesPerShare = values
-      })
+      }).catch(showError)
+
       BorsdataAPI.getProfitPerShare(companyUrlName).then((values) => {
         this.profitPerShare = values
-      })
+      }).catch(showError)
     }
   },
   data: function () {
     return {
       salesPerShare: [],
       profitPerShare: [],
+      companyUrlName: 'byggmax',
     }
   }
 }
