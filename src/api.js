@@ -1,7 +1,6 @@
-import ajax from '@/utils/ajax'
 
 function parseKeyValueResponse(response) {
-  return JSON.parse(response).values.reverse()
+  return response.json().then((json) => json.values.reverse())
 }
 
 function getUrl(kpiId, companyUrlName) {
@@ -10,10 +9,10 @@ function getUrl(kpiId, companyUrlName) {
 
 class BorsdataAPI {
   static getProfitPerShare(companyUrlName) {
-    return ajax(getUrl(6, companyUrlName)).then(parseKeyValueResponse)
+    return fetch(getUrl(6, companyUrlName)).then(parseKeyValueResponse)
   }
   static getSalesPerShare(companyUrlName) {
-    return ajax(getUrl(5, companyUrlName)).then(parseKeyValueResponse)
+    return fetch(getUrl(5, companyUrlName)).then(parseKeyValueResponse)
   }
 }
 
