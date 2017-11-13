@@ -5,6 +5,7 @@
       <input type="text" v-model="companyUrlName">
     </label>
     <button v-on:click="loadData(companyUrlName)">Ladda</button>
+
     <div class="key-figures">
       <KeyFigureBox
         class="key-figure"
@@ -17,6 +18,8 @@
         v-bind:data="profitPerShare"
       ></KeyFigureBox>
     </div>
+
+    <a v-bind:href="getBorsdataUrl(companyUrlName)">Visa på börsdata.se</a>
   </div>
 </template>
 
@@ -43,7 +46,10 @@ export default {
         this.salesPerShare = salesPerShare
         this.profitPerShare = profitPerShare
       }).catch(showError)
-    }
+    },
+    getBorsdataUrl(companyUrlName) {
+      return `https://borsdata.se/${companyUrlName}/nyckeltal`
+    },
   },
   data: function () {
     return {
