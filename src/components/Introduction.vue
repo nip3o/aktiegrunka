@@ -36,12 +36,12 @@ export default {
   components: {KeyFigureBox},
   methods: {
     loadData(companyUrlName) {
-      BorsdataAPI.getSalesPerShare(companyUrlName).then((values) => {
-        this.salesPerShare = values
-      }).catch(showError)
-
-      BorsdataAPI.getProfitPerShare(companyUrlName).then((values) => {
-        this.profitPerShare = values
+      Promise.all([
+        BorsdataAPI.getSalesPerShare(companyUrlName),
+        BorsdataAPI.getProfitPerShare(companyUrlName)
+      ]).then(([salesPerShare, profitPerShare]) => {
+        this.salesPerShare = salesPerShare
+        this.profitPerShare = profitPerShare
       }).catch(showError)
     }
   },
