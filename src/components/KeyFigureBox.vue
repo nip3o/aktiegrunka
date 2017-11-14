@@ -2,12 +2,16 @@
   <div>
     <h3>{{ title }}</h3>
     <table>
-      <tr v-for="item in getItems()">
-        <th>{{ item.periodName }}</th>
-        <td>{{ item.value }}</td>
+      <tr v-for="year in years">
+        <th>{{ year.periodName }}</th>
+        <td>{{ year.value }}</td>
         <td>
-          <span v-if="item.changePercent">{{ item.changePercent | formatPercent }}</span>
+          <span v-if="year.changePercent">{{ year.changePercent | formatPercent }}</span>
         </td>
+      </tr>
+      <tr>
+        <td>Medel</td>
+        <td colspan="2">{{ averagePercent | formatPercent }}</td>
       </tr>
     </table>
   </div>
@@ -22,8 +26,8 @@ export default {
       return `${Math.round(value * 10) / 10} %`
     }
   },
-  methods: {
-    getItems() {
+  computed: {
+    years() {
       let previousValue = null
 
       return this.data.map((item) => {
@@ -37,8 +41,13 @@ export default {
         }
         previousValue = result.value
         return result
-      })
-    }
+      }).reverse()
+    },
+    averagePercent() {
+      const sum = this.years.reduce((sum, year) => sum + (year.changePercent || 0), 0)
+      const count = this.years.length - 1
+      return sum / count
+    },
   },
 }
 </script>
