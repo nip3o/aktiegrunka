@@ -56,8 +56,8 @@ export default {
 div {
   margin: 10px;
 }
-td {
-  padding: 10px;
+td, th {
+  padding: 0 10px;
   text-align: right;
 }
 </style>
