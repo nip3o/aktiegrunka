@@ -13,6 +13,12 @@
         <td>Medel</td>
         <td colspan="2">{{ averagePercent | formatPercent }}</td>
       </tr>
+      <tr>
+        <td>Gissning</td>
+        <td colspan="2">
+          <input type="number" class="percent"> %
+        </td>
+      </tr>
     </table>
   </div>
 </template>
@@ -58,6 +64,10 @@ div {
 }
 td, th {
   padding: 0 10px;
+  text-align: right;
+}
+input.percent {
+  width: 40px;
   text-align: right;
 }
 </style>
