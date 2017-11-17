@@ -89,6 +89,14 @@ export default {
         datasets: [{
           label: this.title,
           data: this.yearItems.map((i) => i.value),
+          borderColor: '#666',
+          backgroundColor: '#666',
+        }, {
+          label: 'Trend',
+          data: this.yearItems.map((i) => this.trend.predict(i.year)[1] ),
+          borderColor: '#E91E63',
+          backgroundColor: '#E91E63',
+          pointBorderWidth: 0,
         }],
       }
     },

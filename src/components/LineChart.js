@@ -5,13 +5,15 @@ export default {
   mixins: [mixins.reactiveProp],
   props: [],
   mounted () {
-    console.log(this.chartData)
     this.renderChart(this.chartData, {
       elements: {
         line: {
             tension: 0,
             fill: false,
-        }
+        },
+        point: {
+          radius: 0
+        },
       }
     })
   }
