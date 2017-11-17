@@ -24,14 +24,22 @@
         </td>
       </tr>
     </table>
+
+    <LineChart
+      :chartData="chartData"
+      :width="250"
+      :height="250"
+    ></LineChart>
   </div>
 </template>
 
 <script>
 import regression from 'regression'
+import LineChart from '@/components/LineChart'
 
 export default {
   name: 'KeyFigureBox',
+  components: {LineChart},
   props: ['title', 'data'],
   filters: {
     formatPercent(value) {
@@ -71,6 +79,18 @@ export default {
       const lastItem = this.yearItems[this.yearItems.length - 1]
       const nextValue = this.trend.predict(lastItem.year + 5)[1]
       return ((nextValue - lastItem.value) / lastItem.value) * 100 / 5
+    },
+    chartData() {
+      if (!this.yearItems) {
+        return {}
+      }
+      return {
+        labels: this.yearItems.map((i) => i.periodName),
+        datasets: [{
+          label: this.title,
+          data: this.yearItems.map((i) => i.value),
+        }],
+      }
     },
   },
 }
